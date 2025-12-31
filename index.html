@@ -5,90 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Премьера</title>
   <style>
-    :root{
-      --bg:#0f0f0f;
-      --text:#ffffff;
-      --muted:#aaaaaa;
-      --accent:#22c55e; /* новогодний зелёный */ /* как у YouTube */
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
-
+    :root{--bg:#0f0f0f;--text:#fff;--muted:#aaa;--accent:#22c55e}
+    *{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
     .page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
     .container{width:100%;max-width:960px}
-
+    .title{margin:0 0 12px 0;text-align:center;font-size:22px;font-weight:700;color:var(--accent)}
     .player-wrap{background:black;border-radius:8px;overflow:hidden}
     video{width:100%;display:none}
-
     .placeholder{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:#000}
     .placeholder span{font-size:20px;color:var(--muted)}
-
     .controls{display:none;align-items:center;gap:12px;padding:8px}
     .play{cursor:pointer;font-size:14px}
-
     .bar{flex:1;height:4px;background:#333;border-radius:2px;position:relative}
     .bar .allowed{position:absolute;left:0;top:0;height:100%;background:#555}
     .bar .fill{position:absolute;left:0;top:0;height:100%;background:var(--accent)}
-
     .time{font-size:12px;color:var(--muted);min-width:90px;text-align:right}
-
     .countdown{margin-top:14px;text-align:center;font-size:18px}
-    .countdown span{color:var(--accent);font-weight:bold}
-
-    @media(max-width:480px){
-      .time{min-width:70px;font-size:11px}
-      .countdown{font-size:16px}
-      .title{font-size:18px}
-    }
-      .countdown{font-size:16px}
-    }
-  .title{
-      margin:0 0 12px 0;
-      text-align:center;
-      font-size:22px;
-      font-weight:700;
-      color:var(--accent);
-      letter-spacing:0.3px;
-    }
-
-    /* лёгкий новогодний снег */
-    .snow::before,.snow::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      background-image:
-        radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.8) 50%, transparent 51%),
-        radial-gradient(1.5px 1.5px at 100px 80px, rgba(255,255,255,0.6) 50%, transparent 51%),
-        radial-gradient(1px 1px at 200px 150px, rgba(255,255,255,0.5) 50%, transparent 51%);
-      background-size:300px 300px;
-      animation:snow 20s linear infinite;
-    }
-    .snow::after{
-      opacity:0.6;
-      animation-duration:30s;
-    }
-    @keyframes snow{
-      from{transform:translateY(-300px)}
-      to{transform:translateY(300px)}
-    }
-
+    @media(max-width:480px){.time{min-width:70px;font-size:11px}.countdown{font-size:16px}.title{font-size:18px}}
   </style>
 </head>
 <body>
 <div class="page">
   <div class="container">
-    <h1 class="title"><span id="titleText">Д-стан — новогодняя премьера 🎄</span> <span id="liveBadge" style="display:none;color:#ef4444;font-weight:700">🔴 ● ПРЕМЬЕРА</span><div id="since" style="margin-top:6px;font-size:13px;color:#aaaaaa;display:none"></div></h1>
-    <div class="snow" aria-hidden="true"></div>
+    <h1 class="title"><span id="titleText">Д-стан — новогодняя премьера 🎄</span>
+      <span id="liveBadge" style="display:none;color:#ef4444;font-weight:700">🔴 ● ПРЕМЬЕРА</span>
+      <div id="since" style="margin-top:6px;font-size:13px;color:#aaaaaa;display:none"></div>
+    </h1>
 
     <div class="player-wrap">
-      <div id="placeholder" class="placeholder">
-        <span id="placeholderText">Премьера скоро</span>
-      </div>
+      <div id="placeholder" class="placeholder"><span id="placeholderText">Премьера скоро</span></div>
 
       <video id="video" playsinline muted preload="metadata">
-        <source src="premiere.mp4" type="video/mp4">
-        <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+        <!-- Твоя прямая ссылка Google Drive: -->
+        <source src="https://drive.google.com/uc?export=download&id=16b9tNLa835DezDgZgozkyaRzEtqiPHch" type="video/mp4">
       </video>
     </div>
 
@@ -101,22 +50,18 @@
       <div class="time" id="time">00:00 / 00:00</div>
     </div>
 
-    <div class="countdown" id="countdownWrap">
-      До премьеры: <span id="countdown">00:00:00</span>
-    </div>
-
+    <div class="countdown" id="countdownWrap">До премьеры: <span id="countdown">00:00:00</span></div>
   </div>
 </div>
 
 <script>
-// ====== НАСТРОЙКА ======
-const PREMIERE_ISO = '2025-12-31T18:00:00+03:00'; // МСК
+// МСК
+const PREMIERE_ISO = '2025-12-31T18:00:00+03:00';
 const premiereStart = Date.parse(PREMIERE_ISO);
 const EPS = 0.6;
 
 const video = document.getElementById('video');
 const placeholder = document.getElementById('placeholder');
-const placeholderText = document.getElementById('placeholderText');
 const controls = document.getElementById('controls');
 const playBtn = document.getElementById('playBtn');
 const bar = document.getElementById('bar');
@@ -125,6 +70,8 @@ const fill = document.getElementById('fill');
 const timeLabel = document.getElementById('time');
 const countdownWrap = document.getElementById('countdownWrap');
 const countdown = document.getElementById('countdown');
+const liveBadge = document.getElementById('liveBadge');
+const sinceEl = document.getElementById('since');
 
 let active = false;
 let finished = false;
@@ -136,33 +83,29 @@ function formatTime(s){
   const sec = s%60;
   return `${m}:${String(sec).padStart(2,'0')}`;
 }
-
 function formatCountdown(ms){
   if(ms<0) ms=0;
   const s = Math.floor(ms/1000)%60;
   const m = Math.floor(ms/60000)%60;
   const h = Math.floor(ms/3600000);
-  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'00')}`;
 }
 
 function updateCountdown(){
   const now = Date.now();
   const diff = premiereStart - now;
-  if(diff > 0){
-    countdown.textContent = formatCountdown(diff);
-  } else if(!active){
-    startPremiere();
-  }
+  if(diff > 0){ countdown.textContent = formatCountdown(diff); }
+  else if(!active){ startPremiere(); }
 }
 
 function startPremiere(){
-  document.getElementById('liveBadge').style.display = 'inline';
-  document.getElementById('since').style.display = 'block';
   active = true;
   countdownWrap.style.display = 'none';
   placeholder.style.display = 'none';
   video.style.display = 'block';
   controls.style.display = 'flex';
+  liveBadge.style.display = 'inline';
+  sinceEl.style.display = 'block';
   video.play().catch(()=>{});
   sync();
 }
@@ -171,54 +114,36 @@ function sync(){
   if(!active || finished || isNaN(video.duration)) return;
   const allowedTime = (Date.now() - premiereStart)/1000;
 
-  if(allowedTime >= video.duration){
-    finished = true;
-    controls.style.display = 'none';
-    video.controls = true;
-    video.muted = false;
-    return;
-  }
+  if(allowedTime >= video.duration){ finished = true; controls.style.display = 'none'; video.controls = true; video.muted = false; return; }
 
-  if(Math.abs(video.currentTime - allowedTime) > EPS){
-    video.currentTime = Math.max(0, allowedTime);
-  }
-
+  if(Math.abs(video.currentTime - allowedTime) > EPS){ video.currentTime = Math.max(0, allowedTime); }
   updateUI();
 }
 
 function updateUI(){
-  // время с начала премьеры
-  const sinceEl = document.getElementById('since');
-  const passed = Math.max(0, (Date.now() - premiereStart)/1000);
-  sinceEl.textContent = 'В эфире ' + formatTime(passed);
-
-  const dur = video.duration;
-  const cur = video.currentTime;
+  const dur = video.duration || 0;
+  const cur = video.currentTime || 0;
   const allowedTime = Math.min(dur, (Date.now() - premiereStart)/1000);
-
-  fill.style.width = (cur/dur*100) + '%';
-  allowed.style.width = (allowedTime/dur*100) + '%';
+  fill.style.width = (dur? cur/dur*100:0) + '%';
+  allowed.style.width = (dur? allowedTime/dur*100:0) + '%';
   timeLabel.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
+  sinceEl.textContent = 'В эфире ' + formatTime(Math.max(0,(Date.now()-premiereStart)/1000));
   playBtn.textContent = video.paused ? '▶' : '⏸';
 }
 
 video.addEventListener('seeking', ()=>{
   if(finished) return;
   const allowedTime = (Date.now() - premiereStart)/1000;
-  if(video.currentTime > allowedTime + EPS){
-    video.currentTime = allowedTime;
-  }
+  if(video.currentTime > allowedTime + EPS){ video.currentTime = allowedTime; }
 });
 
-playBtn.addEventListener('click', ()=>{
-  video.paused ? video.play() : video.pause();
-});
+playBtn.addEventListener('click', ()=>{ video.paused ? video.play() : video.pause(); });
 
 bar.addEventListener('click', e=>{
   if(finished) return;
   const rect = bar.getBoundingClientRect();
   const pct = (e.clientX - rect.left) / rect.width;
-  const target = pct * video.duration;
+  const target = pct * (video.duration || 0);
   const allowedTime = (Date.now() - premiereStart)/1000;
   video.currentTime = Math.min(target, allowedTime);
 });
@@ -226,10 +151,7 @@ bar.addEventListener('click', e=>{
 setInterval(sync, 500);
 setInterval(updateCountdown, 300);
 
-// если пользователь зашёл после старта
-if(Date.now() >= premiereStart){
-  startPremiere();
-}
+if(Date.now() >= premiereStart){ startPremiere(); }
 </script>
 </body>
 </html>
