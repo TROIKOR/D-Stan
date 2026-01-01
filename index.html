@@ -1,157 +1,872 @@
-<!doctype html>
-<html lang="ru">
+<!DOCTYPE html>
+<html lang="ru" dir="ltr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Премьера</title>
-  <style>
-    :root{--bg:#0f0f0f;--text:#fff;--muted:#aaa;--accent:#22c55e}
-    *{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif}
-    .page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:16px}
-    .container{width:100%;max-width:960px}
-    .title{margin:0 0 12px 0;text-align:center;font-size:22px;font-weight:700;color:var(--accent)}
-    .player-wrap{background:black;border-radius:8px;overflow:hidden}
-    video{width:100%;display:none}
-    .placeholder{aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;background:#000}
-    .placeholder span{font-size:20px;color:var(--muted)}
-    .controls{display:none;align-items:center;gap:12px;padding:8px}
-    .play{cursor:pointer;font-size:14px}
-    .bar{flex:1;height:4px;background:#333;border-radius:2px;position:relative}
-    .bar .allowed{position:absolute;left:0;top:0;height:100%;background:#555}
-    .bar .fill{position:absolute;left:0;top:0;height:100%;background:var(--accent)}
-    .time{font-size:12px;color:var(--muted);min-width:90px;text-align:right}
-    .countdown{margin-top:14px;text-align:center;font-size:18px}
-    @media(max-width:480px){.time{min-width:70px;font-size:11px}.countdown{font-size:16px}.title{font-size:18px}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Республика Д Стан — Официальный сайт виртуального государства</title>
+    
+    <!-- SEO мета-теги -->
+    <meta name="description" content="Официальный сайт Республики Д Стан - виртуального государства, образованного после распада Драздыстана 14 октября 2025 года. Вступить в гражданство, узнать о правительстве, истории виртуальной страны.">
+    <meta name="keywords" content="Д Стан, Республика Д стан, Д-Стан, Драздыстан, Драздынское царство, виртуальное государство, микрогосударство, виртуальная страна, Александр Александрович президент, Николай Александрович премьер-министр, республика Драздыстан">
+    
+    <!-- Open Graph для соцсетей -->
+    <meta property="og:title" content="Республика Д Стан - Официальный сайт виртуального государства">
+    <meta property="og:description" content="Виртуальное государство, образованное после распада Драздыстана 14 октября 2025 года">
+    <meta property="og:url" content="https://republicdstan.ru/">
+    <meta property="og:type" content="website">
+    
+    <!-- Иконка сайта -->
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-bg: #0a0a0a;
+            --dark-card: #121212;
+            --dark-border: #222222;
+            --green-primary: #1a7c3a;
+            --green-secondary: #145c2d;
+            --white: #ffffff;
+            --light-gray: #e0e0e0;
+            --gray: #888888;
+            --black: #000000;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-gray);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-card);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--green-primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--green-secondary);
+        }
+
+        header {
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 2px solid var(--dark-border);
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .flag {
+            width: 60px;
+            height: 40px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border: 1px solid var(--dark-border);
+        }
+
+        .flag-stripe {
+            height: 33.33%;
+            width: 100%;
+        }
+
+        .stripe-green {
+            background-color: var(--green-primary);
+        }
+
+        .stripe-white {
+            background-color: var(--white);
+        }
+
+        .stripe-black {
+            background-color: var(--black);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--green-primary), var(--white));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light-gray);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--green-primary);
+            background-color: rgba(26, 124, 58, 0.1);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--green-primary);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.8rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--white);
+            line-height: 1.2;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+
+        .hero h1 span {
+            color: var(--green-primary);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2.5rem;
+            color: var(--light-gray);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: var(--green-primary);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            box-shadow: 0 5px 15px rgba(26, 124, 58, 0.4);
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            border-color: var(--green-primary);
+            color: var(--green-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(26, 124, 58, 0.6);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--white);
+            color: var(--white);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--dark-bg);
+            border-color: var(--white);
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            color: var(--white);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--green-primary), var(--white), var(--black));
+            border-radius: 2px;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background-color: var(--dark-card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid var(--dark-border);
+            box-shadow: var(--shadow);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--green-primary);
+            box-shadow: 0 15px 40px rgba(26, 124, 58, 0.2);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--green-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .government {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .official-card {
+            background-color: var(--dark-card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            width: 300px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--dark-border);
+        }
+
+        .official-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--green-primary);
+        }
+
+        .official-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 4px solid var(--green-primary);
+            box-shadow: 0 0 20px rgba(26, 124, 58, 0.5);
+        }
+
+        .official-name {
+            font-size: 1.8rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .official-title {
+            font-size: 1.2rem;
+            color: var(--green-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .history-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 4rem auto;
+            padding-left: 50px;
+        }
+
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--green-primary), var(--white), var(--black));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-date {
+            position: absolute;
+            left: -50px;
+            top: 0;
+            background-color: var(--green-primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .timeline-content {
+            background-color: var(--dark-card);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--green-primary);
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content h3 {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .link-card {
+            background-color: var(--dark-card);
+            border-radius: var(--radius);
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid var(--dark-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .link-card:hover {
+            border-color: var(--green-primary);
+            transform: scale(1.03);
+        }
+
+        .link-icon {
+            font-size: 3rem;
+            color: var(--green-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        footer {
+            background-color: var(--black);
+            padding: 4rem 2rem 2rem;
+            margin-top: 5rem;
+            border-top: 2px solid var(--green-primary);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-logo .flag {
+            width: 45px;
+            height: 30px;
+        }
+
+        .footer-title {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--green-primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--green-primary);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--dark-border);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .copyright span {
+            color: var(--green-primary);
+            font-weight: 700;
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--dark-bg);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                border-top: 1px solid var(--dark-border);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .government {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .history-timeline {
+                padding-left: 40px;
+            }
+            
+            .history-timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-date {
+                left: -40px;
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 0 1rem;
+            }
+            
+            .card, .official-card, .link-card {
+                padding: 1.5rem;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
-<div class="page">
-  <div class="container">
-    <h1 class="title"><span id="titleText">Д-стан — новогодняя премьера 🎄</span>
-      <span id="liveBadge" style="display:none;color:#ef4444;font-weight:700">🔴 ● ПРЕМЬЕРА</span>
-      <div id="since" style="margin-top:6px;font-size:13px;color:#aaaaaa;display:none"></div>
-    </h1>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="flag">
+                    <div class="flag-stripe stripe-green"></div>
+                    <div class="flag-stripe stripe-white"></div>
+                    <div class="flag-stripe stripe-black"></div>
+                </div>
+                <div class="logo-text">РЕСПУБЛИКА Д СТАН</div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#main">Главная</a></li>
+                <li><a href="#about">О стране</a></li>
+                <li><a href="#government">Правительство</a></li>
+                <li><a href="#history">История</a></li>
+                <li><a href="#links">Ресурсы</a></li>
+            </ul>
+        </div>
+    </header>
 
-    <div class="player-wrap">
-      <div id="placeholder" class="placeholder"><span id="placeholderText">Премьера скоро</span></div>
+    <section class="hero" id="main">
+        <div class="hero-content">
+            <h1>Добро пожаловать в <span>Республику Д Стан</span></h1>
+            <p>Молодое прогрессивное государство, рожденное 14 октября 2025 года. Мы строим будущее, основанное на принципах свободы, инноваций и единства.</p>
+            <div>
+                <a href="#about" class="btn">Узнать больше</a>
+                <a href="#links" class="btn btn-outline">Присоединиться</a>
+            </div>
+        </div>
+    </section>
 
-      <video id="video" playsinline muted preload="metadata">
-        <!-- Твоя прямая ссылка Google Drive: -->
-        <source src="https://drive.google.com/uc?export=download&id=16b9tNLa835DezDgZgozkyaRzEtqiPHch" type="video/mp4">
-      </video>
-    </div>
+    <section class="section" id="about">
+        <h2 class="section-title">О нашей стране</h2>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3>Наши ценности</h3>
+                <p>Свобода самовыражения, технологический прогресс, уважение к истории и культуре, открытость к международному сотрудничеству.</p>
+            </div>
+            <div class="card floating">
+                <div class="card-icon">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <h3>Наше будущее</h3>
+                <p>Республика Д Стан стремится стать примером цифрового государства будущего, где технологии служат на благо каждого гражданина.</p>
+            </div>
+            <div class="card" style="animation-delay: 1s;">
+                <div class="card-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h3>Международные связи</h3>
+                <p>Активное развитие дипломатических отношений и участие в международных проектах в цифровом пространстве.</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="controls" id="controls">
-      <div class="play" id="playBtn">▶</div>
-      <div class="bar" id="bar">
-        <div class="allowed" id="allowed"></div>
-        <div class="fill" id="fill"></div>
-      </div>
-      <div class="time" id="time">00:00 / 00:00</div>
-    </div>
+    <section class="section" id="government">
+        <h2 class="section-title">Правительство</h2>
+        <div class="government">
+            <div class="official-card">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Александр Александрович" class="official-photo">
+                <h3 class="official-name">Александр Александрович</h3>
+                <p class="official-title">Призидент Республики</p>
+                <p>Возглавил движение за создание суверенного государства после распада Драздыстана.</p>
+            </div>
+            <div class="official-card">
+                <img src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Николай Александрович" class="official-photo">
+                <h3 class="official-name">Николай Александрович</h3>
+                <p class="official-title">Премьер-министр</p>
+                <p>Отвечает за формирование и реализацию внутренней и внешней политики государства.</p>
+            </div>
+        </div>
+    </section>
 
-    <div class="countdown" id="countdownWrap">До премьеры: <span id="countdown">00:00:00</span></div>
-  </div>
-</div>
+    <section class="section" id="history">
+        <h2 class="section-title">Наша история</h2>
+        <div class="history-timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">14 октября 2025</div>
+                <div class="timeline-content">
+                    <h3>Рождение Республики</h3>
+                    <p>После распада Драздыстана было провозглашено суверенное государство — Республика Д Стан. Этот день отмечается как национальный праздник.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Ноябрь 2025</div>
+                <div class="timeline-content">
+                    <h3>Формирование правительства</h3>
+                    <p>Сформировано первое правительство во главе с Призидентом Александром Александровичем и Премьер-министром Николаем Александровичем.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2026 - настоящее время</div>
+                <div class="timeline-content">
+                    <h3>Развитие и прогресс</h3>
+                    <p>Активное развитие цифровой инфраструктуры, установление международных связей, создание культурных и образовательных проектов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<script>
-// МСК
-const PREMIERE_ISO = '2025-12-31T18:00:00+03:00';
-const premiereStart = Date.parse(PREMIERE_ISO);
-const EPS = 0.6;
+    <section class="section" id="links">
+        <h2 class="section-title">Ресурсы и связь</h2>
+        <div class="links-grid">
+            <div class="link-card">
+                <div class="link-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>Стать гражданином</h3>
+                <p>Подайте заявку на получение гражданства Республики Д Стан</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSet8Cw3k4-DBreK6IVFxkE4ySu4bwdZqtO551xToAkm1xSM_A/viewform?usp=dialog" class="btn" target="_blank" rel="noopener">Подать заявку</a>
+            </div>
+            <div class="link-card">
+                <div class="link-icon">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <h3>Наш YouTube</h3>
+                <p>Официальный канал Республики Д Стан с новостями и трансляциями</p>
+                <a href="https://www.youtube.com/@РеспубликаД-Стан" class="btn" target="_blank" rel="noopener">Перейти на канал</a>
+            </div>
+            <div class="link-card">
+                <div class="link-icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <h3>NVY Games</h3>
+                <p>Официальная команда разработки игр, сайтов и проектов Д Стана</p>
+                <a href="https://t.me/NVYgames" class="btn" target="_blank" rel="noopener">Телеграм-канал</a>
+            </div>
+        </div>
+    </section>
 
-const video = document.getElementById('video');
-const placeholder = document.getElementById('placeholder');
-const controls = document.getElementById('controls');
-const playBtn = document.getElementById('playBtn');
-const bar = document.getElementById('bar');
-const allowed = document.getElementById('allowed');
-const fill = document.getElementById('fill');
-const timeLabel = document.getElementById('time');
-const countdownWrap = document.getElementById('countdownWrap');
-const countdown = document.getElementById('countdown');
-const liveBadge = document.getElementById('liveBadge');
-const sinceEl = document.getElementById('since');
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <div class="flag">
+                        <div class="flag-stripe stripe-green"></div>
+                        <div class="flag-stripe stripe-white"></div>
+                        <div class="flag-stripe stripe-black"></div>
+                    </div>
+                    Д СТАН
+                </div>
+                <p>Республика Д Стан — виртуальное государство, основанное 14 октября 2025 года после распада Драздыстана.</p>
+            </div>
+            <div>
+                <h3 class="footer-title">Быстрые ссылки</h3>
+                <ul class="footer-links">
+                    <li><a href="#main"><i class="fas fa-home"></i> Главная</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> О стране</a></li>
+                    <li><a href="#government"><i class="fas fa-users"></i> Правительство</a></li>
+                    <li><a href="#history"><i class="fas fa-history"></i> История</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="footer-title">Контакты</h3>
+                <ul class="footer-links">
+                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSet8Cw3k4-DBreK6IVFxkE4ySu4bwdZqtO551xToAkm1xSM_A/viewform?usp=dialog" target="_blank" rel="noopener"><i class="fas fa-file-signature"></i> Заявка на гражданство</a></li>
+                    <li><a href="https://www.youtube.com/@РеспубликаД-Стан" target="_blank" rel="noopener"><i class="fab fa-youtube"></i> YouTube</a></li>
+                    <li><a href="https://t.me/NVYgames" target="_blank" rel="noopener"><i class="fab fa-telegram"></i> Телеграм NVY Games</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025-2026 Республика Д Стан. Все права защищены. Разработано командой <span>NVY Games</span></p>
+        </div>
+    </footer>
 
-let active = false;
-let finished = false;
-
-function formatTime(s){
-  if(isNaN(s)) return '00:00';
-  s = Math.floor(s);
-  const m = Math.floor(s/60);
-  const sec = s%60;
-  return `${m}:${String(sec).padStart(2,'0')}`;
-}
-function formatCountdown(ms){
-  if(ms<0) ms=0;
-  const s = Math.floor(ms/1000)%60;
-  const m = Math.floor(ms/60000)%60;
-  const h = Math.floor(ms/3600000);
-  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'00')}`;
-}
-
-function updateCountdown(){
-  const now = Date.now();
-  const diff = premiereStart - now;
-  if(diff > 0){ countdown.textContent = formatCountdown(diff); }
-  else if(!active){ startPremiere(); }
-}
-
-function startPremiere(){
-  active = true;
-  countdownWrap.style.display = 'none';
-  placeholder.style.display = 'none';
-  video.style.display = 'block';
-  controls.style.display = 'flex';
-  liveBadge.style.display = 'inline';
-  sinceEl.style.display = 'block';
-  video.play().catch(()=>{});
-  sync();
-}
-
-function sync(){
-  if(!active || finished || isNaN(video.duration)) return;
-  const allowedTime = (Date.now() - premiereStart)/1000;
-
-  if(allowedTime >= video.duration){ finished = true; controls.style.display = 'none'; video.controls = true; video.muted = false; return; }
-
-  if(Math.abs(video.currentTime - allowedTime) > EPS){ video.currentTime = Math.max(0, allowedTime); }
-  updateUI();
-}
-
-function updateUI(){
-  const dur = video.duration || 0;
-  const cur = video.currentTime || 0;
-  const allowedTime = Math.min(dur, (Date.now() - premiereStart)/1000);
-  fill.style.width = (dur? cur/dur*100:0) + '%';
-  allowed.style.width = (dur? allowedTime/dur*100:0) + '%';
-  timeLabel.textContent = `${formatTime(cur)} / ${formatTime(dur)}`;
-  sinceEl.textContent = 'В эфире ' + formatTime(Math.max(0,(Date.now()-premiereStart)/1000));
-  playBtn.textContent = video.paused ? '▶' : '⏸';
-}
-
-video.addEventListener('seeking', ()=>{
-  if(finished) return;
-  const allowedTime = (Date.now() - premiereStart)/1000;
-  if(video.currentTime > allowedTime + EPS){ video.currentTime = allowedTime; }
-});
-
-playBtn.addEventListener('click', ()=>{ video.paused ? video.play() : video.pause(); });
-
-bar.addEventListener('click', e=>{
-  if(finished) return;
-  const rect = bar.getBoundingClientRect();
-  const pct = (e.clientX - rect.left) / rect.width;
-  const target = pct * (video.duration || 0);
-  const allowedTime = (Date.now() - premiereStart)/1000;
-  video.currentTime = Math.min(target, allowedTime);
-});
-
-setInterval(sync, 500);
-setInterval(updateCountdown, 300);
-
-if(Date.now() >= premiereStart){ startPremiere(); }
-</script>
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.card, .official-card, .link-card, .timeline-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
