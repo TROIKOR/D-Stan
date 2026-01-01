@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Республика Д Стан — Официальный сайт виртуального государства</title>
+    <title>Республика Д-Стан — Официальный сайт демократического государства</title>
     
     <!-- SEO мета-теги -->
-    <meta name="description" content="Официальный сайт Республики Д Стан - виртуального государства, образованного после распада Драздыстана 14 октября 2025 года. Вступить в гражданство, узнать о правительстве, истории виртуальной страны.">
-    <meta name="keywords" content="Д Стан, Республика Д стан, Д-Стан, Драздыстан, Драздынское царство, виртуальное государство, микрогосударство, виртуальная страна, Александр Александрович президент, Николай Александрович премьер-министр, республика Драздыстан">
+    <meta name="description" content="Официальный сайт Республики Д-Стан - демократического государства, основанного 15 октября 2025 года. Вступить в гражданство, узнать о правительстве, истории страны.">
+    <meta name="keywords" content="Д-Стан, Республика Д-Стан, виртуальное государство, демократическое государство, микрогосударство, виртуальная страна, Александр Александрович президент, Николай Александрович премьер-министр">
     
     <!-- Open Graph для соцсетей -->
-    <meta property="og:title" content="Республика Д Стан - Официальный сайт виртуального государства">
-    <meta property="og:description" content="Виртуальное государство, образованное после распада Драздыстана 14 октября 2025 года">
+    <meta property="og:title" content="Республика Д-Стан - Официальный сайт демократического государства">
+    <meta property="og:description" content="Демократическое государство, основанное 15 октября 2025 года">
     <meta property="og:url" content="https://republicdstan.ru/">
     <meta property="og:type" content="website">
     
@@ -380,6 +380,7 @@
             font-weight: 600;
         }
 
+        /* ИСПРАВЛЕННЫЙ БЛОК ИСТОРИИ - ДАТЫ ПОДНЯТЫ ВЫШЕ */
         .history-timeline {
             position: relative;
             max-width: 800px;
@@ -406,13 +407,18 @@
         .timeline-date {
             position: absolute;
             left: -50px;
-            top: 0;
+            top: -15px; /* ПОДНЯТ ВЫШЕ НА 15px */
             background-color: var(--green-primary);
             color: var(--white);
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-weight: 700;
             font-size: 1.1rem;
+            white-space: nowrap;
+            min-width: 140px;
+            text-align: center;
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .timeline-content {
@@ -421,6 +427,8 @@
             border-radius: var(--radius);
             border-left: 4px solid var(--green-primary);
             box-shadow: var(--shadow);
+            margin-left: 10px;
+            margin-top: 10px; /* ДОБАВИЛ ОТСТУП СВЕРХУ */
         }
 
         .timeline-content h3 {
@@ -591,18 +599,34 @@
                 align-items: center;
             }
             
+            /* ИСПРАВЛЕНИЯ ДЛЯ ИСТОРИИ НА МОБИЛЬНЫХ - ДАТЫ ТОЖЕ ПОДНЯТЫ */
             .history-timeline {
-                padding-left: 40px;
+                padding-left: 20px;
+                margin-left: 0;
             }
             
             .history-timeline::before {
-                left: 15px;
+                left: 10px;
             }
             
             .timeline-date {
-                left: -40px;
-                font-size: 0.9rem;
-                padding: 0.4rem 0.8rem;
+                position: relative;
+                left: 0;
+                top: 0;
+                margin-bottom: 0.5rem; /* УМЕНЬШИЛ ОТСТУП СНИЗУ */
+                margin-top: -5px; /* ПОДНЯЛ ДАТУ ЧУТЬ ВЫШЕ */
+                display: inline-block;
+                min-width: 120px;
+            }
+            
+            .timeline-content {
+                margin-left: 0;
+                padding: 1.2rem;
+                margin-top: 0; /* УБРАЛ ОТСТУП СВЕРХУ ДЛЯ МОБИЛЬНЫХ */
+            }
+            
+            .timeline-item {
+                margin-bottom: 2.5rem;
             }
         }
 
@@ -622,6 +646,25 @@
             
             .card, .official-card, .link-card {
                 padding: 1.5rem;
+            }
+            
+            .timeline-date {
+                font-size: 1rem;
+                padding: 0.4rem 0.8rem;
+                min-width: 110px;
+                margin-top: -8px; /* ЕЩЕ ЧУТЬ ПОДНЯЛ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
+            }
+            
+            .history-timeline {
+                padding-left: 15px;
+            }
+            
+            .history-timeline::before {
+                left: 7px;
+            }
+            
+            .timeline-content {
+                padding: 1rem;
             }
         }
 
@@ -648,7 +691,7 @@
                     <div class="flag-stripe stripe-white"></div>
                     <div class="flag-stripe stripe-black"></div>
                 </div>
-                <div class="logo-text">РЕСПУБЛИКА Д СТАН</div>
+                <div class="logo-text">РЕСПУБЛИКА Д-СТАН</div>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
@@ -665,8 +708,8 @@
 
     <section class="hero" id="main">
         <div class="hero-content">
-            <h1>Добро пожаловать в <span>Республику Д Стан</span></h1>
-            <p>Молодое прогрессивное государство, рожденное 14 октября 2025 года. Мы строим будущее, основанное на принципах свободы, инноваций и единства.</p>
+            <h1>Добро пожаловать в <span>Республику Д-Стан</span></h1>
+            <p>Молодое прогрессивное демократическое государство, основанное 15 октября 2025 года. Мы строим будущее, основанное на принципах свободы, демократии и единства народа.</p>
             <div>
                 <a href="#about" class="btn">Узнать больше</a>
                 <a href="#links" class="btn btn-outline">Присоединиться</a>
@@ -682,21 +725,21 @@
                     <i class="fas fa-gem"></i>
                 </div>
                 <h3>Наши ценности</h3>
-                <p>Свобода самовыражения, технологический прогресс, уважение к истории и культуре, открытость к международному сотрудничеству.</p>
+                <p>Свобода слова, демократические выборы, верховенство права, равенство всех перед законом, защита прав человека и открытость к международному сотрудничеству.</p>
             </div>
             <div class="card floating">
                 <div class="card-icon">
                     <i class="fas fa-rocket"></i>
                 </div>
                 <h3>Наше будущее</h3>
-                <p>Республика Д Стан стремится стать примером цифрового государства будущего, где технологии служат на благо каждого гражданина.</p>
+                <p>Республика Д-Стан стремится стать примером современного демократического государства, где технологии и инновации служат на благо каждого гражданина.</p>
             </div>
             <div class="card" style="animation-delay: 1s;">
                 <div class="card-icon">
                     <i class="fas fa-globe"></i>
                 </div>
                 <h3>Международные связи</h3>
-                <p>Активное развитие дипломатических отношений и участие в международных проектах в цифровом пространстве.</p>
+                <p>Активное развитие дипломатических отношений на основе демократических ценностей и участие в международных проектах по цифровизации государств.</p>
             </div>
         </div>
     </section>
@@ -705,16 +748,16 @@
         <h2 class="section-title">Правительство</h2>
         <div class="government">
             <div class="official-card">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Александр Александрович" class="official-photo">
+                <img src="sasha.png" alt="Александр Александрович" class="official-photo">
                 <h3 class="official-name">Александр Александрович</h3>
-                <p class="official-title">Призидент Республики</p>
-                <p>Возглавил движение за создание суверенного государства после распада Драздыстана.</p>
+                <p class="official-title">Президент Республики</p>
+                <p>Избран народом на первых демократических выборах. Возглавляет государство с момента его основания.</p>
             </div>
             <div class="official-card">
-                <img src="https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Николай Александрович" class="official-photo">
+                <img src="kolya.png" alt="Николай Александрович" class="official-photo">
                 <h3 class="official-name">Николай Александрович</h3>
                 <p class="official-title">Премьер-министр</p>
-                <p>Отвечает за формирование и реализацию внутренней и внешней политики государства.</p>
+                <p>Отвечает за формирование и реализацию внутренней и внешней политики демократического государства.</p>
             </div>
         </div>
     </section>
@@ -723,24 +766,24 @@
         <h2 class="section-title">Наша история</h2>
         <div class="history-timeline">
             <div class="timeline-item">
-                <div class="timeline-date">14 октября 2025</div>
+                <div class="timeline-date">15 октября 2025</div>
                 <div class="timeline-content">
-                    <h3>Рождение Республики</h3>
-                    <p>После распада Драздыстана было провозглашено суверенное государство — Республика Д Стан. Этот день отмечается как национальный праздник.</p>
+                    <h3>Основание Республики</h3>
+                    <p>В этот день была провозглашена Республика Д-Стан - независимое демократическое государство. Этот день отмечается как национальный праздник - День основания.</p>
                 </div>
             </div>
             <div class="timeline-item">
                 <div class="timeline-date">Ноябрь 2025</div>
                 <div class="timeline-content">
-                    <h3>Формирование правительства</h3>
-                    <p>Сформировано первое правительство во главе с Призидентом Александром Александровичем и Премьер-министром Николаем Александровичем.</p>
+                    <h3>Первые демократические выборы</h3>
+                    <p>Состоялись первые всенародные выборы, на которых граждане избрали Президента и Парламент Республики Д-Стан.</p>
                 </div>
             </div>
             <div class="timeline-item">
                 <div class="timeline-date">2026 - настоящее время</div>
                 <div class="timeline-content">
-                    <h3>Развитие и прогресс</h3>
-                    <p>Активное развитие цифровой инфраструктуры, установление международных связей, создание культурных и образовательных проектов.</p>
+                    <h3>Развитие демократии</h3>
+                    <p>Активное развитие демократических институтов, создание правовой системы, защищающей права граждан, развитие цифровой инфраструктуры и международных связей.</p>
                 </div>
             </div>
         </div>
@@ -754,7 +797,7 @@
                     <i class="fas fa-user-plus"></i>
                 </div>
                 <h3>Стать гражданином</h3>
-                <p>Подайте заявку на получение гражданства Республики Д Стан</p>
+                <p>Подайте заявку на получение гражданства Республики Д-Стан</p>
                 <a href="https://docs.google.com/forms/d/e/1FAIpQLSet8Cw3k4-DBreK6IVFxkE4ySu4bwdZqtO551xToAkm1xSM_A/viewform?usp=dialog" class="btn" target="_blank" rel="noopener">Подать заявку</a>
             </div>
             <div class="link-card">
@@ -762,7 +805,7 @@
                     <i class="fab fa-youtube"></i>
                 </div>
                 <h3>Наш YouTube</h3>
-                <p>Официальный канал Республики Д Стан с новостями и трансляциями</p>
+                <p>Официальный канал Республики Д-Стан с новостями и трансляциями</p>
                 <a href="https://www.youtube.com/@РеспубликаД-Стан" class="btn" target="_blank" rel="noopener">Перейти на канал</a>
             </div>
             <div class="link-card">
@@ -770,7 +813,7 @@
                     <i class="fas fa-gamepad"></i>
                 </div>
                 <h3>NVY Games</h3>
-                <p>Официальная команда разработки игр, сайтов и проектов Д Стана</p>
+                <p>Официальная команда разработки игр, сайтов и проектов Д-Стан</p>
                 <a href="https://t.me/NVYgames" class="btn" target="_blank" rel="noopener">Телеграм-канал</a>
             </div>
         </div>
@@ -785,9 +828,9 @@
                         <div class="flag-stripe stripe-white"></div>
                         <div class="flag-stripe stripe-black"></div>
                     </div>
-                    Д СТАН
+                    Д-СТАН
                 </div>
-                <p>Республика Д Стан — виртуальное государство, основанное 14 октября 2025 года после распада Драздыстана.</p>
+                <p>Республика Д-Стан — демократическое государство, основанное 15 октября 2025 года.</p>
             </div>
             <div>
                 <h3 class="footer-title">Быстрые ссылки</h3>
@@ -808,7 +851,7 @@
             </div>
         </div>
         <div class="copyright">
-            <p>&copy; 2025-2026 Республика Д Стан. Все права защищены. Разработано командой <span>NVY Games</span></p>
+            <p>&copy; 2025-2026 Республика Д-Стан. Все права защищены. Разработано командой <span>NVY Games</span></p>
         </div>
     </footer>
 
