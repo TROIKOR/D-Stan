@@ -179,7 +179,9 @@
         }
 
         .hero {
-            background-color: var(--dark-bg);
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -187,27 +189,11 @@
             text-align: center;
             padding: 2rem;
             margin-top: 80px;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(26, 124, 58, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-            z-index: 1;
         }
 
         .hero-content {
             max-width: 900px;
             animation: fadeInUp 1s ease-out;
-            position: relative;
-            z-index: 2;
         }
 
         @keyframes fadeInUp {
@@ -226,6 +212,7 @@
             margin-bottom: 1.5rem;
             color: var(--white);
             line-height: 1.2;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
         }
 
         .hero h1 span {
@@ -393,6 +380,7 @@
             font-weight: 600;
         }
 
+        /* ИСПРАВЛЕННЫЙ БЛОК ИСТОРИИ - ДАТЫ ПОДНЯТЫ ВЫШЕ */
         .history-timeline {
             position: relative;
             max-width: 800px;
@@ -419,7 +407,7 @@
         .timeline-date {
             position: absolute;
             left: -50px;
-            top: -15px;
+            top: -15px; /* ПОДНЯТ ВЫШЕ НА 15px */
             background-color: var(--green-primary);
             color: var(--white);
             padding: 0.5rem 1rem;
@@ -440,75 +428,12 @@
             border-left: 4px solid var(--green-primary);
             box-shadow: var(--shadow);
             margin-left: 10px;
-            margin-top: 10px;
+            margin-top: 10px; /* ДОБАВИЛ ОТСТУП СВЕРХУ */
         }
 
         .timeline-content h3 {
             color: var(--white);
             margin-bottom: 0.5rem;
-        }
-
-        /* Стили для новостей */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .news-card {
-            background-color: var(--dark-card);
-            border-radius: var(--radius);
-            overflow: hidden;
-            border: 1px solid var(--dark-border);
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-
-        .news-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--green-primary);
-            box-shadow: 0 15px 40px rgba(26, 124, 58, 0.2);
-        }
-
-        .news-header {
-            background-color: var(--green-primary);
-            padding: 1.5rem;
-            color: var(--white);
-        }
-
-        .news-date {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .news-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .news-category {
-            display: inline-block;
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 0.3rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .news-content {
-            padding: 1.5rem;
-        }
-
-        .news-text {
-            color: var(--gray);
-            line-height: 1.7;
-            margin-bottom: 0;
         }
 
         .links-grid {
@@ -633,10 +558,6 @@
             .section-title {
                 font-size: 2.4rem;
             }
-            
-            .news-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            }
         }
 
         @media (max-width: 768px) {
@@ -678,6 +599,7 @@
                 align-items: center;
             }
             
+            /* ИСПРАВЛЕНИЯ ДЛЯ ИСТОРИИ НА МОБИЛЬНЫХ - ДАТЫ ТОЖЕ ПОДНЯТЫ */
             .history-timeline {
                 padding-left: 20px;
                 margin-left: 0;
@@ -691,8 +613,8 @@
                 position: relative;
                 left: 0;
                 top: 0;
-                margin-bottom: 0.5rem;
-                margin-top: -5px;
+                margin-bottom: 0.5rem; /* УМЕНЬШИЛ ОТСТУП СНИЗУ */
+                margin-top: -5px; /* ПОДНЯЛ ДАТУ ЧУТЬ ВЫШЕ */
                 display: inline-block;
                 min-width: 120px;
             }
@@ -700,15 +622,11 @@
             .timeline-content {
                 margin-left: 0;
                 padding: 1.2rem;
-                margin-top: 0;
+                margin-top: 0; /* УБРАЛ ОТСТУП СВЕРХУ ДЛЯ МОБИЛЬНЫХ */
             }
             
             .timeline-item {
                 margin-bottom: 2.5rem;
-            }
-            
-            .news-grid {
-                grid-template-columns: 1fr;
             }
         }
 
@@ -726,7 +644,7 @@
                 padding: 0 1rem;
             }
             
-            .card, .official-card, .link-card, .news-card {
+            .card, .official-card, .link-card {
                 padding: 1.5rem;
             }
             
@@ -734,7 +652,7 @@
                 font-size: 1rem;
                 padding: 0.4rem 0.8rem;
                 min-width: 110px;
-                margin-top: -8px;
+                margin-top: -8px; /* ЕЩЕ ЧУТЬ ПОДНЯЛ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
             }
             
             .history-timeline {
@@ -762,21 +680,6 @@
         .floating {
             animation: float 5s ease-in-out infinite;
         }
-        
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            color: var(--gray);
-            font-size: 1.2rem;
-        }
-        
-        .no-news {
-            text-align: center;
-            padding: 3rem;
-            color: var(--gray);
-            font-size: 1.2rem;
-            grid-column: 1 / -1;
-        }
     </style>
 </head>
 <body>
@@ -798,7 +701,6 @@
                 <li><a href="#about">О стране</a></li>
                 <li><a href="#government">Правительство</a></li>
                 <li><a href="#history">История</a></li>
-                <li><a href="#news">Новости</a></li>
                 <li><a href="#links">Ресурсы</a></li>
             </ul>
         </div>
@@ -810,7 +712,7 @@
             <p>Молодое прогрессивное демократическое государство, основанное 15 октября 2025 года. Мы строим будущее, основанное на принципах свободы, демократии и единства народа.</p>
             <div>
                 <a href="#about" class="btn">Узнать больше</a>
-                <a href="#news" class="btn btn-outline">Последние новости</a>
+                <a href="#links" class="btn btn-outline">Присоединиться</a>
             </div>
         </div>
     </section>
@@ -874,7 +776,7 @@
                 <div class="timeline-date">Ноябрь 2025</div>
                 <div class="timeline-content">
                     <h3>Первые демократические выборы</h3>
-                    <p>Состоялись первые всенародные выборы, на которых граждане избрали Президент и Парламент Республики Д-Стан.</p>
+                    <p>Состоялись первые всенародные выборы, на которых граждане избрали Президента и Парламент Республики Д-Стан.</p>
                 </div>
             </div>
             <div class="timeline-item">
@@ -883,16 +785,6 @@
                     <h3>Развитие демократии</h3>
                     <p>Активное развитие демократических институтов, создание правовой системы, защищающей права граждан, развитие цифровой инфраструктуры и международных связей.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="news">
-        <h2 class="section-title">Последние новости</h2>
-        <div id="news-container" class="news-grid">
-            <!-- Новости будут загружены через JavaScript -->
-            <div class="loading">
-                <i class="fas fa-spinner fa-spin"></i> Загрузка новостей...
             </div>
         </div>
     </section>
@@ -947,7 +839,6 @@
                     <li><a href="#about"><i class="fas fa-info-circle"></i> О стране</a></li>
                     <li><a href="#government"><i class="fas fa-users"></i> Правительство</a></li>
                     <li><a href="#history"><i class="fas fa-history"></i> История</a></li>
-                    <li><a href="#news"><i class="fas fa-newspaper"></i> Новости</a></li>
                 </ul>
             </div>
             <div>
@@ -1019,77 +910,6 @@
             el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             observer.observe(el);
         });
-
-        // Загрузка новостей из JSON файла
-        async function loadNews() {
-            try {
-                const response = await fetch('news.json');
-                if (!response.ok) {
-                    throw new Error('Файл новостей не найден');
-                }
-                const news = await response.json();
-                displayNews(news);
-            } catch (error) {
-                console.error('Ошибка загрузки новостей:', error);
-                document.getElementById('news-container').innerHTML = `
-                    <div class="no-news">
-                        <i class="fas fa-exclamation-circle"></i>
-                        <p>Новости временно недоступны</p>
-                        <p>Создайте файл news.json в корне сайта</p>
-                    </div>
-                `;
-            }
-        }
-
-        function displayNews(news) {
-            const container = document.getElementById('news-container');
-            container.innerHTML = '';
-            
-            if (!news || news.length === 0) {
-                container.innerHTML = `
-                    <div class="no-news">
-                        <i class="far fa-newspaper"></i>
-                        <p>Новостей пока нет</p>
-                        <p>Скоро здесь появятся обновления</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            // Сортируем новости по дате (новые сначала)
-            news.sort((a, b) => new Date(b.date) - new Date(a.date));
-            
-            news.forEach(item => {
-                const newsCard = document.createElement('div');
-                newsCard.className = 'news-card';
-                newsCard.style.opacity = '0';
-                newsCard.style.transform = 'translateY(20px)';
-                newsCard.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                
-                const date = new Date(item.date).toLocaleDateString('ru-RU', {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric'
-                });
-                
-                newsCard.innerHTML = `
-                    <div class="news-header">
-                        <div class="news-date"><i class="far fa-calendar"></i> ${date}</div>
-                        <h3 class="news-title">${item.title}</h3>
-                        <span class="news-category">${item.category}</span>
-                    </div>
-                    <div class="news-content">
-                        <p class="news-text">${item.content}</p>
-                    </div>
-                `;
-                
-                container.appendChild(newsCard);
-                observer.observe(newsCard);
-            });
-        }
-
-        // Загружаем новости при загрузке страницы
-        document.addEventListener('DOMContentLoaded', loadNews);
     </script>
 </body>
 </html>
