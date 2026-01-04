@@ -508,44 +508,7 @@
         .news-text {
             color: var(--gray);
             line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .news-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1rem;
-            border-top: 1px solid var(--dark-border);
-        }
-
-        .news-link {
-            color: var(--green-primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
-        }
-
-        .news-link:hover {
-            gap: 1rem;
-        }
-
-        .news-tags {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .news-tag {
-            background-color: rgba(26, 124, 58, 0.1);
-            color: var(--green-primary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            margin-bottom: 0;
         }
 
         .links-grid {
@@ -785,16 +748,6 @@
             .timeline-content {
                 padding: 1rem;
             }
-            
-            .news-footer {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-            }
-            
-            .news-tags {
-                width: 100%;
-            }
         }
 
         @keyframes float {
@@ -815,6 +768,14 @@
             padding: 3rem;
             color: var(--gray);
             font-size: 1.2rem;
+        }
+        
+        .no-news {
+            text-align: center;
+            padding: 3rem;
+            color: var(--gray);
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
         }
     </style>
 </head>
@@ -1071,20 +1032,10 @@
             } catch (error) {
                 console.error('Ошибка загрузки новостей:', error);
                 document.getElementById('news-container').innerHTML = `
-                    <div class="news-card">
-                        <div class="news-header">
-                            <div class="news-date"><i class="far fa-calendar"></i> ${new Date().toLocaleDateString('ru-RU')}</div>
-                            <h3 class="news-title">Ошибка загрузки новостей</h3>
-                            <span class="news-category">Информация</span>
-                        </div>
-                        <div class="news-content">
-                            <p class="news-text">Новости временно недоступны. Создайте файл news.json в корне сайта.</p>
-                            <div class="news-footer">
-                                <div class="news-tags">
-                                    <span class="news-tag">информация</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="no-news">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <p>Новости временно недоступны</p>
+                        <p>Создайте файл news.json в корне сайта</p>
                     </div>
                 `;
             }
@@ -1093,6 +1044,17 @@
         function displayNews(news) {
             const container = document.getElementById('news-container');
             container.innerHTML = '';
+            
+            if (!news || news.length === 0) {
+                container.innerHTML = `
+                    <div class="no-news">
+                        <i class="far fa-newspaper"></i>
+                        <p>Новостей пока нет</p>
+                        <p>Скоро здесь появятся обновления</p>
+                    </div>
+                `;
+                return;
+            }
             
             // Сортируем новости по дате (новые сначала)
             news.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -1118,10 +1080,6 @@
                     </div>
                     <div class="news-content">
                         <p class="news-text">${item.content}</p>
-                        <div class="news-footer">
-                            ${item.link ? `<a href="${item.link}" target="_blank" class="news-link">Подробнее <i class="fas fa-arrow-right"></i></a>` : ''}
-                            ${item.tags ? `<div class="news-tags">${item.tags.map(tag => `<span class="news-tag">${tag}</span>`).join('')}</div>` : ''}
-                        </div>
                     </div>
                 `;
                 
