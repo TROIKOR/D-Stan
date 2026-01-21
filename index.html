@@ -185,7 +185,7 @@
         }
 
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background: var(--dark-bg);
             background-size: cover;
             background-position: center;
             min-height: 100vh;
@@ -195,11 +195,25 @@
             text-align: center;
             padding: 2rem;
             margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(26, 124, 58, 0.1) 0%, transparent 70%);
         }
 
         .hero-content {
             max-width: 900px;
             animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeInUp {
@@ -340,19 +354,69 @@
             flex-grow: 1;
         }
 
+        /* Новости */
+        .news-container {
+            margin-top: 3rem;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background-color: var(--dark-card);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--dark-border);
+            box-shadow: var(--shadow);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--green-primary);
+        }
+
+        .news-date {
+            background-color: var(--green-primary);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            border-radius: 0 0 6px 0;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-content h3 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .news-content p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Правительство */
         .government {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 3rem;
             margin-top: 3rem;
         }
 
         .official-card {
             background-color: var(--dark-card);
             border-radius: var(--radius);
-            padding: 2rem;
-            width: 300px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
             transition: var(--transition);
             border: 1px solid var(--dark-border);
@@ -361,32 +425,33 @@
         .official-card:hover {
             transform: translateY(-10px);
             border-color: var(--green-primary);
+            box-shadow: 0 15px 40px rgba(26, 124, 58, 0.2);
         }
 
         .official-photo {
-            width: 150px;
-            height: 150px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 1.5rem;
             border: 4px solid var(--green-primary);
-            box-shadow: 0 0 20px rgba(26, 124, 58, 0.5);
+            box-shadow: 0 0 25px rgba(26, 124, 58, 0.5);
         }
 
         .official-name {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--white);
             margin-bottom: 0.5rem;
         }
 
         .official-title {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--green-primary);
             margin-bottom: 1rem;
             font-weight: 600;
         }
 
-        /* ИСПРАВЛЕННЫЙ БЛОК ИСТОРИИ - ДАТЫ ПОДНЯТЫ ВЫШЕ */
+        /* ИСПРАВЛЕННЫЙ БЛОК ИСТОРИИ */
         .history-timeline {
             position: relative;
             max-width: 800px;
@@ -413,7 +478,7 @@
         .timeline-date {
             position: absolute;
             left: -50px;
-            top: -15px; /* ПОДНЯТ ВЫШЕ НА 15px */
+            top: -15px;
             background-color: var(--green-primary);
             color: var(--white);
             padding: 0.5rem 1rem;
@@ -434,7 +499,7 @@
             border-left: 4px solid var(--green-primary);
             box-shadow: var(--shadow);
             margin-left: 10px;
-            margin-top: 10px; /* ДОБАВИЛ ОТСТУП СВЕРХУ */
+            margin-top: 10px;
         }
 
         .timeline-content h3 {
@@ -600,12 +665,6 @@
                 font-size: 2rem;
             }
             
-            .government {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            /* ИСПРАВЛЕНИЯ ДЛЯ ИСТОРИИ НА МОБИЛЬНЫХ - ДАТЫ ТОЖЕ ПОДНЯТЫ */
             .history-timeline {
                 padding-left: 20px;
                 margin-left: 0;
@@ -619,8 +678,8 @@
                 position: relative;
                 left: 0;
                 top: 0;
-                margin-bottom: 0.5rem; /* УМЕНЬШИЛ ОТСТУП СНИЗУ */
-                margin-top: -5px; /* ПОДНЯЛ ДАТУ ЧУТЬ ВЫШЕ */
+                margin-bottom: 0.5rem;
+                margin-top: -5px;
                 display: inline-block;
                 min-width: 120px;
             }
@@ -628,11 +687,15 @@
             .timeline-content {
                 margin-left: 0;
                 padding: 1.2rem;
-                margin-top: 0; /* УБРАЛ ОТСТУП СВЕРХУ ДЛЯ МОБИЛЬНЫХ */
+                margin-top: 0;
             }
             
             .timeline-item {
                 margin-bottom: 2.5rem;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -650,7 +713,7 @@
                 padding: 0 1rem;
             }
             
-            .card, .official-card, .link-card {
+            .card, .official-card, .link-card, .news-card {
                 padding: 1.5rem;
             }
             
@@ -658,7 +721,7 @@
                 font-size: 1rem;
                 padding: 0.4rem 0.8rem;
                 min-width: 110px;
-                margin-top: -8px; /* ЕЩЕ ЧУТЬ ПОДНЯЛ ДЛЯ МАЛЕНЬКИХ ЭКРАНОВ */
+                margin-top: -8px;
             }
             
             .history-timeline {
@@ -705,6 +768,7 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#main">Главная</a></li>
                 <li><a href="#about">О стране</a></li>
+                <li><a href="#news">Новости</a></li>
                 <li><a href="#government">Правительство</a></li>
                 <li><a href="#history">История</a></li>
                 <li><a href="#links">Ресурсы</a></li>
@@ -750,20 +814,24 @@
         </div>
     </section>
 
+    <section class="section" id="news">
+        <h2 class="section-title">Последние новости</h2>
+        <div class="news-container" id="newsContainer">
+            <!-- Новости будут загружены динамически из News.json -->
+            <div class="loading-news">
+                <p style="text-align: center; color: var(--gray); font-size: 1.2rem;">Загрузка новостей...</p>
+            </div>
+        </div>
+    </section>
+
     <section class="section" id="government">
         <h2 class="section-title">Правительство</h2>
         <div class="government">
             <div class="official-card">
-                <img src="sasha.png" alt="Александр Александрович" class="official-photo">
-                <h3 class="official-name">Александр Александрович</h3>
+                <img src="kolya.png" alt="Коля Найсви" class="official-photo">
+                <h3 class="official-name">Коля Найсви</h3>
                 <p class="official-title">Президент Республики</p>
-                <p>Избран народом на первых демократических выборах. Возглавляет государство с момента его основания.</p>
-            </div>
-            <div class="official-card">
-                <img src="kolya.png" alt="Николай Александрович" class="official-photo">
-                <h3 class="official-name">Николай Александрович</h3>
-                <p class="official-title">Премьер-министр</p>
-                <p>Отвечает за формирование и реализацию внутренней и внешней политики демократического государства.</p>
+                <p>Избран народом на первых демократических выборах. Возглавляет государство с момента его основания. Отвечает за формирование и реализацию внутренней и внешней политики демократического государства.</p>
             </div>
         </div>
     </section>
@@ -843,7 +911,8 @@
                 <ul class="footer-links">
                     <li><a href="#main"><i class="fas fa-home"></i> Главная</a></li>
                     <li><a href="#about"><i class="fas fa-info-circle"></i> О стране</a></li>
-                    <li><a href="#government"><i class="fas fa-users"></i> Правительство</a></li>
+                    <li><a href="#news"><i class="fas fa-newspaper"></i> Новости</a></li>
+                    <li><a href="#government"><i class="fas fa-user-tie"></i> Правительство</a></li>
                     <li><a href="#history"><i class="fas fa-history"></i> История</a></li>
                 </ul>
             </div>
@@ -862,6 +931,7 @@
     </footer>
 
     <script>
+        // Мобильное меню
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         
@@ -879,6 +949,7 @@
             });
         });
         
+        // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -896,6 +967,7 @@
             });
         });
         
+        // Анимация появления элементов
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -910,12 +982,86 @@
             });
         }, observerOptions);
         
-        document.querySelectorAll('.card, .official-card, .link-card, .timeline-item').forEach(el => {
+        document.querySelectorAll('.card, .official-card, .link-card, .timeline-item, .news-card').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
             observer.observe(el);
         });
+        
+        // Загрузка новостей из JSON файла
+        async function loadNews() {
+            try {
+                const response = await fetch('News.json');
+                if (!response.ok) {
+                    throw new Error('Не удалось загрузить новости');
+                }
+                
+                const newsData = await response.json();
+                displayNews(newsData.news);
+            } catch (error) {
+                console.error('Ошибка загрузки новостей:', error);
+                document.getElementById('newsContainer').innerHTML = `
+                    <div class="error-news">
+                        <p style="text-align: center; color: #ff6b6b; font-size: 1.2rem;">
+                            <i class="fas fa-exclamation-triangle"></i> Не удалось загрузить новости. Пожалуйста, попробуйте позже.
+                        </p>
+                    </div>
+                `;
+            }
+        }
+        
+        function displayNews(newsArray) {
+            const newsContainer = document.getElementById('newsContainer');
+            
+            if (!newsArray || newsArray.length === 0) {
+                newsContainer.innerHTML = `
+                    <div class="no-news">
+                        <p style="text-align: center; color: var(--gray); font-size: 1.2rem;">
+                            <i class="fas fa-newspaper"></i> Новостей пока нет.
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Сортируем новости по дате (от новых к старым)
+            newsArray.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            const newsHTML = newsArray.map(newsItem => `
+                <div class="news-card">
+                    <div class="news-date">${formatDate(newsItem.date)}</div>
+                    <div class="news-content">
+                        <h3>${newsItem.title}</h3>
+                        <p>${newsItem.content}</p>
+                        ${newsItem.link ? `<a href="${newsItem.link}" target="_blank" rel="noopener" class="btn" style="padding: 0.5rem 1.5rem; font-size: 1rem;">Подробнее</a>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            
+            newsContainer.innerHTML = `
+                <div class="news-grid">
+                    ${newsHTML}
+                </div>
+            `;
+            
+            // Применяем анимацию к загруженным новостям
+            document.querySelectorAll('.news-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(el);
+            });
+        }
+        
+        function formatDate(dateString) {
+            const options = { day: 'numeric', month: 'long', year: 'numeric' };
+            const date = new Date(dateString);
+            return date.toLocaleDateString('ru-RU', options);
+        }
+        
+        // Загружаем новости при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadNews);
     </script>
 </body>
 </html>
